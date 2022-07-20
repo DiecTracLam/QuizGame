@@ -2,23 +2,31 @@ const express = require("express");
 const { db } = require("../model/connectDB");
 const bcrypt = require("bcrypt");
 var jwt = require("jsonwebtoken");
+const { application } = require("express");
 const UserRouter = express.Router();
 
 UserRouter.post("/register", async (req, res, next) => {
-  const { email, username, password } = req.body;
+  const { email, username, password , nickname} = req.body;
 
   if (!email || !username || !password)
     return res.status(400).json({
       success: false,
-      message: "Missing email or username or password ",
+      message: "Missing email or username or password or nickname",
     });
 
   try {
-    const user = await db.Users.findOne({ username });
+    let user = await db.Users.findOne({ username });
     if (user) {
       return res
         .status(400)
         .json({ success: false, message: "Username already taken" });
+    }
+
+    user = await db.Users.findOne({ nickname });
+    if (user) {
+      return res
+        .status(400)
+        .json({ success: false, message: "Nickname already taken" });
     }
 
     const newpassword = await bcrypt.hash(password, 10);
@@ -27,6 +35,7 @@ UserRouter.post("/register", async (req, res, next) => {
       email,
       username,
       password: newpassword,
+      nickname
     });
     const accessToken = jwt.sign({ userId: newUser.insertedId }, "sha");
     res.json({ success: true, accessToken });
@@ -66,3 +75,5 @@ UserRouter.post("/login", async (req, res, next) => {
 
 
 module.exports = UserRouter;
+
+

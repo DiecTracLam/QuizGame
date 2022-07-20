@@ -10,6 +10,9 @@ async function connectDB(){
         await client.connect();
         const database = client.db(dbName);
         db.Users = database.collection('User');
+        db.Questions = database.collection('Question');
+        db.Answers = database.collection('Answer');
+        db.ScoreTables = database.collection('Score_Table');
     } catch (error) {
         console.log(error)
     }

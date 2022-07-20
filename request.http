@@ -1,0 +1,19 @@
+//===================== User ==================
+//Login
+POST https://quizgame12145.herokuapp.com/user/login  
+
+//Register
+POST https://quizgame12145.herokuapp.com/user/register
+
+//===================== Question ================
+GET https://quizgame12145.herokuapp.com/questions
+
+//===================== Score ==================
+
+GET https://quizgame12145.herokuapp.com/scores
+
+//Upload score
+
+# Fronted : Phải gửi accessToken mới upload được điểm  
+POST https://quizgame12145.herokuapp.com/scores/upload
+
