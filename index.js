@@ -1,4 +1,5 @@
 const express = require('express');
+var cors = require('cors')
 
 const bodyParser = require("body-parser");
 const { connectDB } = require('./model/connectDB');
@@ -13,3 +14,4 @@ app.listen(port,()=>{
 })
 
 app.use('/',router)
+app.use(cors())
