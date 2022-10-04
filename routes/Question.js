@@ -16,9 +16,6 @@ QuestionRouter.get("/", async function (req, res) {
           as: "answer",
         },
       },
-      {
-        $unset: ["_id", "answer._id"],
-      },
     ]).toArray();
     res.json({data:questions});
   } catch (error) {
